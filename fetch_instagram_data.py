@@ -10,8 +10,8 @@ import requests
 from pymongo import MongoClient
 
 # ── Configuration from environment variables ──
-INSTAGRAM_USERNAME = os.getenv("INSTAGRAM_USERNAME", "bimazznxt.sub")
-COOKIES_FILE = os.getenv("COOKIES_FILE", "cookies.txt")
+INSTAGRAM_USERNAME = os.getenv("INSTAGRAM_USERNAME", "bimazznxt")
+COOKIES_FILE = os.getenv("COOKIES_FILE", "cookies13726.txt")
 MONGO_URI = os.getenv("MONGO_URI")
 MONGO_DB = os.getenv("MONGO_DB", "bigdata")
 MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "instagram_events")

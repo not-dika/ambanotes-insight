@@ -23,7 +23,7 @@ jobs:
       - name: Decode cookies file
         env:
           COOKIES_B64: ${{ secrets.COOKIES_B64 }}
-        run: echo "$COOKIES_B64" | base64 --decode > cookies.txt
+        run: echo "$COOKIES_B64" | base64 --decode > cookies13726.txt
 
       - name: Run scraper
         env:
