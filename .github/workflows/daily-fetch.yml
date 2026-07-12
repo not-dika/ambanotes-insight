@@ -1,0 +1,39 @@
+name: Daily Instagram Data Fetch
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  fetch-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Decode cookies file
+        env:
+          COOKIES_B64: ${{ secrets.COOKIES_B64 }}
+        run: echo "$COOKIES_B64" | base64 --decode > cookies.txt
+
+      - name: Run scraper
+        env:
+          INSTAGRAM_USERNAME: ${{ secrets.INSTAGRAM_USERNAME }}
+          INSTAGRAM_PASSWORD: ${{ secrets.INSTAGRAM_PASSWORD }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: python fetch_instagram_data.py
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-data
+          path: instagram_event_gereja.csv

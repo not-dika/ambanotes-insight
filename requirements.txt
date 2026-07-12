@@ -1,0 +1,4 @@
+instaloader>=4.15
+requests>=2.25
+pandas>=1.0
+pymongo>=4.0
