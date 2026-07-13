@@ -1,4 +1,4 @@
-name: Daily Instagram Data Fetch
+name: Daily YouTube Data Fetch
 
 on:
   schedule:
@@ -20,20 +20,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Decode cookies file
-        env:
-          COOKIES_B64: ${{ secrets.COOKIES_B64 }}
-        run: echo "$COOKIES_B64" | base64 --decode > cookies13726.txt
-
       - name: Run scraper
         env:
-          INSTAGRAM_USERNAME: ${{ secrets.INSTAGRAM_USERNAME }}
-          INSTAGRAM_PASSWORD: ${{ secrets.INSTAGRAM_PASSWORD }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
-        run: python fetch_instagram_data.py
+          MONGO_DB: bigdata
+          MONGO_COLLECTION: youtube_events
+          CSV_OUTPUT: youtube_events.csv
+        run: python youtube_scraper.py --limit 10
 
       - name: Upload CSV artifact
         uses: actions/upload-artifact@v4
         with:
-          name: instagram-data
-          path: instagram_event_gereja.csv
+          name: youtube-data
+          path: youtube_events.csv
